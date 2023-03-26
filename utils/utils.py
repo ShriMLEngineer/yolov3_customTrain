@@ -597,14 +597,14 @@ def print_model_biases(model):
 
 def strip_optimizer(f='weights/last.pt'):  # from utils.utils import *; strip_optimizer()
     # Strip optimizer from *.pt files for lighter files (reduced by 2/3 size)
-    x = torch.load(f, map_location=torch.device('cpu'))
+    x = torch.load(f, map_location=torch.device('cuda'))
     x['optimizer'] = None
     torch.save(x, f)
 
 
 def create_backbone(f='weights/last.pt'):  # from utils.utils import *; create_backbone()
     # create a backbone from a *.pt file
-    x = torch.load(f, map_location=torch.device('cpu'))
+    x = torch.load(f, map_location=torch.device('cuda'))
     x['optimizer'] = None
     x['training_results'] = None
     x['epoch'] = -1
@@ -864,8 +864,8 @@ def plot_wh_methods():  # from utils.utils import *; plot_wh_methods()
 
 def plot_images(imgs, targets, paths=None, fname='images.png'):
     # Plots training images overlaid with targets
-    imgs = imgs.cpu().numpy()
-    targets = targets.cpu().numpy()
+    imgs = imgs.cuda().numpy()
+    targets = targets.cuda().numpy()
     # targets = targets[targets[:, 1] == 21]  # plot only one class
 
     fig = plt.figure(figsize=(10, 10))
