@@ -470,7 +470,9 @@ def build_targets(p, targets, model):
             if reject:
                 j = iou.view(-1) > model.hyp['iou_t']  # iou threshold hyperparameter
                 #t, a = t[j], a[j.to(t.device)]  # move indices tensor to GPU device
-                t, a = t.data[j], a[j.to(t.data.device)]    # move indices tensor to GPU device
+                #t, a = t.data[j], a[j.to(t.data.device)]    # move indices tensor to GPU device
+                t, a = t.data[j], a[j.to(t.device)]
+
 
         # Indices
         b, c = t[:, :2].long().t()  # target image, class
